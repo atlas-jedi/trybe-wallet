@@ -1,5 +1,7 @@
 import React from 'react';
 
+import logoTrybe from '../images/logoTrybe.svg';
+
 class Login extends React.Component {
   state = {
     email: '',
@@ -29,28 +31,32 @@ class Login extends React.Component {
     const { isDisabled } = this.state;
 
     return (
-      <div className="center box">
-        <form onSubmit={ this.handleSubmit }>
-          <label htmlFor="email">
-            Email:
-            <input
-              id="email"
-              type="email"
-              data-testid="email-input"
-              onChange={ this.handleChange }
-            />
-          </label>
-          <label htmlFor="password">
-            Senha:
-            <input
-              id="password"
-              type="password"
-              data-testid="password-input"
-              onChange={ this.handleChange }
-            />
-          </label>
-          <button type="submit" disabled={ isDisabled }>Entrar</button>
-        </form>
+      <div className="login center">
+        <div className="background center" />
+        <div className="box">
+          <form onSubmit={ this.handleSubmit }>
+            <img src={ logoTrybe } alt="" />
+            <label htmlFor="email">
+              Email:
+              <input
+                id="email"
+                type="email"
+                data-testid="email-input"
+                onChange={ this.handleChange }
+              />
+            </label>
+            <label htmlFor="password">
+              Senha:
+              <input
+                id="password"
+                type="password"
+                data-testid="password-input"
+                onChange={ this.handleChange }
+              />
+            </label>
+            <button type="submit" disabled={ isDisabled }>Entrar</button>
+          </form>
+        </div>
       </div>
     );
   }
