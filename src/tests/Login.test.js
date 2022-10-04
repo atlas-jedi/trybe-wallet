@@ -1,17 +1,17 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { renderWithRouter } from './helpers/renderWith';
+import { renderWithRouterAndRedux } from './helpers/renderWith';
 import App from '../App';
 
 describe('Teste da página de login', () => {
-  beforeEach(() => renderWithRouter(<App />, '/'));
-
   const CORRECT_EMAIL = 'email.valid@gmail.com';
   const CORRECT_PASSWORD = 'validPassword';
   const INCORRECT_EMAIL = 'com.valid@email-gmail';
   const INCORRECT_PASSWORD = 'pass';
 
   test('Testa a validação da página de login', () => {
+    renderWithRouterAndRedux(<App />, '/');
+
     const emailInput = screen.getByTestId('email-input');
     const passwordInput = screen.getByTestId('password-input');
     const loginButton = screen.getByRole('button');
