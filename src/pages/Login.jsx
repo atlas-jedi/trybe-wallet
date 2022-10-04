@@ -1,4 +1,9 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+import { connect } from 'react-redux';
+import { saveEmail } from '../redux/actions';
 
 import logoTrybe from '../images/logoTrybe.svg';
 
@@ -7,6 +12,7 @@ class Login extends React.Component {
     email: '',
     password: '',
     isDisabled: true,
+    redirect: false,
   };
 
   handleChange = ({ target: { type, value } }) => {
@@ -24,11 +30,19 @@ class Login extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log('Debugando submit de formulário');
+
+    const { dispatchEmail } = this.props;
+    const { email } = this.state;
+
+    dispatchEmail(email);
+
+    this.setState({ redirect: true });
   };
 
   render() {
-    const { isDisabled } = this.state;
+    const { isDisabled, redirect } = this.state;
+
+    if (redirect) return (<Redirect to="/carteira" />);
 
     return (
       <div className="login center">
@@ -62,4 +76,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  dispatchEmail: (email) => dispatch(saveEmail(email)),
+});
+
+Login.propTypes = {
+  dispatchEmail: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
