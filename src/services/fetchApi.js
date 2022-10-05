@@ -5,7 +5,7 @@ const fetchApi = async () => {
     const response = await fetch(URL);
     return await response.json();
   } catch (err) {
-    console.error(err);
+    return err;
   }
 };
 
