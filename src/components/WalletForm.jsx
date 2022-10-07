@@ -23,6 +23,14 @@ class WalletForm extends Component {
 
   handleChange = ({ target: { id, value } }) => this.setState({ [id]: value });
 
+  handleSubmit = (event) => {
+    event.preventDefault();
+    // pegar todos os dados de câmbio nesse momento na api
+    const { saveForm } = this.props;
+    saveForm(this.state);
+    this.setState(INITIAL_STATE);
+  };
+
   render() {
     const { value, description, tag, method, currency } = this.state;
     const { currencies } = this.props;
@@ -89,6 +97,7 @@ class WalletForm extends Component {
               <option key={ index } value={ code }>{ code }</option>
             )) }
           </select>
+          <button type="submit">Adicionar despesa</button>
         </label>
       </form>
     );
@@ -100,12 +109,14 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  loadCurrencies: () => dispatch(fetchCurrencies()),
+  loadCurrencies: () => dispatch(fetchCurrencies('currencies')),
+  saveForm: (form) => dispatch(fetchCurrencies('saveForm', form)),
 });
 
 WalletForm.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   loadCurrencies: PropTypes.func.isRequired,
+  saveForm: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);

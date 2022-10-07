@@ -7,15 +7,17 @@ import logoTrybe from '../images/logoTrybe.svg';
 
 class Header extends Component {
   render() {
-    const { email } = this.props;
+    const { email, totalExpense } = this.props;
 
     return (
       <header>
         <img src={ logoTrybe } alt="Logo Trybewallet" />
         <div className="total-expense">
           <p>
-            Total de despesas:
-            <span data-testid="total-field"> 0</span>
+            {'Total de despesas: '}
+            <span data-testid="total-field">
+              { totalExpense }
+            </span>
             <span data-testid="header-currency-field"> BRL</span>
           </p>
         </div>
@@ -29,10 +31,12 @@ class Header extends Component {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  totalExpense: state.wallet.totalExpense,
 });
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
+  totalExpense: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps)(Header);

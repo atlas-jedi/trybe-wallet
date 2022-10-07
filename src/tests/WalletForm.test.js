@@ -6,12 +6,14 @@ import App from '../App';
 
 import mockData from './helpers/mockData';
 
-describe('', () => {
+describe('Testes do formulário de carteira', () => {
+  afterEach(() => { jest.clearAllMocks(); });
   test('', async () => {
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(mockData),
     });
+
     await act(async () => {
       const response = await fetch().then((data) => data.json());
       const currencies = Object.values(response)
@@ -20,6 +22,8 @@ describe('', () => {
       const store = {
         wallet: {
           currencies,
+          expenses: [],
+          totalExpense: '0',
         },
       };
 
@@ -30,11 +34,9 @@ describe('', () => {
     expect(currencyInput).toBeInTheDocument();
     expect(currencyInput.value).toBe('USD');
     expect(currencyInput.childNodes.length).toBe(15);
+  });
 
-    fetch.mockImplementationOnce(() => Promise.reject(new Error('API is down')));
+  test('Teste do comportamento do formulário ao preencher', () => {
 
-    const currencies = await fetch().catch((err) => err);
-
-    expect(currencies).toEqual(Error('API is down'));
   });
 });
