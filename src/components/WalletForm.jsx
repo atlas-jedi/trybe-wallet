@@ -36,8 +36,8 @@ class WalletForm extends Component {
     const { currencies } = this.props;
 
     return (
-      <form onSubmit={ this.handleSubmit }>
-        <label htmlFor="description">
+      <form onSubmit={ this.handleSubmit } className="form-wallet">
+        <label htmlFor="description" className="description">
           Descrição da despesa
           <input
             id="description"
@@ -62,7 +62,7 @@ class WalletForm extends Component {
             <option value="Saúde">Saúde</option>
           </select>
         </label>
-        <label htmlFor="value">
+        <label htmlFor="value" className="value">
           Valor
           <input
             id="value"
@@ -97,8 +97,9 @@ class WalletForm extends Component {
               <option key={ index } value={ code }>{ code }</option>
             )) }
           </select>
-          <button type="submit">Adicionar despesa</button>
         </label>
+        <br />
+        <button type="submit">Adicionar despesa</button>
       </form>
     );
   }

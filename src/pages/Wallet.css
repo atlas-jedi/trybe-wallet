@@ -1,3 +1,100 @@
 .wallet {
+  display: flex;
+  justify-content: center;
+}
+
+header {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  padding: 25px 20px;
+}
+
+.wallet-header {
   background-color: white;
+  border-radius: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  box-shadow: -4px 9px 13px rgba(5, 18, 54, 0.4);
+  height: 300px;
+  opacity: 100%;
+  padding-bottom: 25px;
+  position: absolute;
+  width: 1050px;
+}
+
+.total-expense p {
+  color: #003be5;
+  font-weight: 700;
+}
+
+.total-expense span {
+  font-weight: 400;
+}
+
+.email {
+  color: #2fc18c;
+  font-weight: 600;
+}
+
+.text-logo {
+  display: flex;
+  justify-content: space-between;
+}
+
+.text-logo img {
+  margin-right: 10px;
+}
+
+.form-wallet {
+  color: #003be5;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 14px;
+  font-weight: 700;
+  height: auto;
+  justify-content: center;
+  line-height: 14px;
+  margin: 10px;
+}
+
+.form-wallet label {
+  display: inline-block;
+  margin-right: 40px;
+  max-width: 1000px;
+}
+
+.form-wallet * {
+  margin-left: 15px;
+  margin-top: 10px;
+}
+
+.form-wallet label * {
+  border: 1px solid #003be5;
+  border-radius: 5px;
+}
+
+.form-wallet select {
+  color: #003be5;
+  height: 30px;
+  padding-right: 40px;
+}
+
+.form-wallet option {
+  color: black;
+}
+
+.form-wallet .description input {
+  height: 30px;
+  width: 288.86px;
+}
+
+.form-wallet button {
+  background-color: #2fc18c;
+  font-size: 14px;
+  font-weight: 700;
+  height: 40px;
+  line-height: 14px;
+  margin-top: 30px;
+  width: 330px;
 }
