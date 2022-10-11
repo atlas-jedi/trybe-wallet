@@ -4,6 +4,7 @@ export const SAVE_EMAIL = 'SAVE_EMAIL';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
 export const SAVE_EDIT_FORM = 'SAVE_EDIT_FORM';
 export const CALC_EXPENSE = 'CALC_EXPENSE';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 export const saveEmail = (email) => ({
   type: SAVE_EMAIL,
@@ -21,6 +22,14 @@ const saveEditForm = (form) => ({
 });
 
 const calcTotalExpense = () => ({ type: CALC_EXPENSE });
+
+export const deleteExpense = (id) => (dispatch) => {
+  dispatch({
+    type: DELETE_EXPENSE,
+    id,
+  });
+  dispatch(calcTotalExpense());
+};
 
 export const fetchCurrencies = (type, form = undefined) => (dispatch) => {
   fetchApi().then((data) => {

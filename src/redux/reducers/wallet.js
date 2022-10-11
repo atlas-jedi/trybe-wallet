@@ -1,4 +1,4 @@
-import { GET_CURRENCIES, SAVE_EDIT_FORM, CALC_EXPENSE } from '../actions';
+import { GET_CURRENCIES, SAVE_EDIT_FORM, CALC_EXPENSE, DELETE_EXPENSE } from '../actions';
 
 const INITAL_STATE = {
   currencies: [],
@@ -9,8 +9,6 @@ const INITAL_STATE = {
 };
 
 const wallet = (state = INITAL_STATE, action) => {
-  const EXP_LENGTH = state.expenses.length;
-
   switch (action.type) {
   case GET_CURRENCIES: return {
     ...state,
@@ -19,9 +17,13 @@ const wallet = (state = INITAL_STATE, action) => {
   case SAVE_EDIT_FORM: return {
     ...state,
     expenses: [...state.expenses, {
-      id: EXP_LENGTH > 0 ? state.expenses[EXP_LENGTH - 1].id + 1 : 0,
+      id: state.expenses.length,
       ...action.form,
     }],
+  };
+  case DELETE_EXPENSE: return {
+    ...state,
+    expenses: state.expenses.filter(({ id }) => id !== Number(action.id)),
   };
   case CALC_EXPENSE: return {
     ...state,

@@ -106,8 +106,8 @@ header {
   box-shadow: -4px 9px 13px rgba(3, 107, 82, 0.3);
   color: white;
   display: flex;
+  height: 600px;
   justify-content: center;
-  max-height: 600px;
   position: absolute;
   top: 156px;
   width: 1155px;
@@ -146,4 +146,12 @@ th , td {
   min-width: 110.93px;
   padding: 8px 0;
   text-align: center;
+}
+
+.delete {
+  background-image: url('../images/lixeira.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 10px 14px;
+  padding: 20px;
 }

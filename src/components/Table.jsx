@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
+import { deleteExpense } from '../redux/actions';
 
 class Table extends Component {
   render() {
-    const { expenses } = this.props;
+    const { expenses, deleteExp } = this.props;
 
     return (
       <div className="table-box">
@@ -25,7 +26,7 @@ class Table extends Component {
           </thead>
           <tbody>
             {
-              expenses.map((exp, index) => {
+              expenses.map((exp) => {
                 const expObject = Object.values(exp.exchangeRates)
                   .find(({ code }) => code === exp.currency);
 
@@ -33,7 +34,7 @@ class Table extends Component {
                 const value = Number(exp.value);
 
                 return (
-                  <tr key={ index }>
+                  <tr key={ exp.id }>
                     <td>{exp.description}</td>
                     <td>{exp.tag}</td>
                     <td>{exp.method}</td>
@@ -42,6 +43,15 @@ class Table extends Component {
                     <td>{ask.toFixed(2)}</td>
                     <td>{(value * ask).toFixed(2)}</td>
                     <td>Real</td>
+                    <td>
+                      <button
+                        data-testid="delete-btn"
+                        type="button"
+                        onClick={ () => deleteExp(exp.id) }
+                      >
+                        Delete
+                      </button>
+                    </td>
                   </tr>
                 );
               })
@@ -57,8 +67,13 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  deleteExp: (id) => dispatch(deleteExpense(id)),
+});
+
 Table.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  deleteExp: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(Table);
+export default connect(mapStateToProps, mapDispatchToProps)(Table);
