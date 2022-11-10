@@ -1,4 +1,10 @@
-import { GET_CURRENCIES, SAVE_EDIT_FORM, CALC_EXPENSE, DELETE_EXPENSE } from '../actions';
+import {
+  GET_CURRENCIES,
+  SAVE_EDIT_FORM,
+  CALC_EXPENSE,
+  DELETE_EXPENSE,
+  EDIT_EXPENSE,
+} from '../actions';
 
 const INITAL_STATE = {
   currencies: [],
@@ -16,6 +22,7 @@ const wallet = (state = INITAL_STATE, action) => {
   };
   case SAVE_EDIT_FORM: return {
     ...state,
+    editor: false,
     expenses: [...state.expenses, {
       id: state.expenses.length,
       ...action.form,
@@ -37,6 +44,11 @@ const wallet = (state = INITAL_STATE, action) => {
 
       return (currentValue * Number(ask)) + acc;
     }, 0)).toFixed(2),
+  };
+  case EDIT_EXPENSE: return {
+    ...state,
+    idToEdit: action.id,
+    editor: true,
   };
   default: return state;
   }

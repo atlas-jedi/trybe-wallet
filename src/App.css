@@ -78,6 +78,10 @@ button {
   transition: 0.5s;
 }
 
+td button {
+  padding: 10px;
+}
+
 button:hover {
   background-color: rgb(0, 46, 184);
 }

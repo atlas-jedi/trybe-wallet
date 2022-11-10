@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { deleteExpense } from '../redux/actions';
+import { deleteExpense, editExpense } from '../redux/actions';
+
+import lixeira from '../images/lixeira.svg';
+import edit from '../images/edit.svg';
 
 class Table extends Component {
   render() {
-    const { expenses, deleteExp } = this.props;
+    const { expenses, deleteExp, editExp } = this.props;
 
     return (
       <div className="table-box">
@@ -45,11 +48,20 @@ class Table extends Component {
                     <td>Real</td>
                     <td>
                       <button
+                        className="delete-btn"
                         data-testid="delete-btn"
                         type="button"
                         onClick={ () => deleteExp(exp.id) }
                       >
-                        Delete
+                        <img src={ lixeira } alt="Deletar" />
+                      </button>
+                      <button
+                        className="edit-btn"
+                        data-testid="edit-btn"
+                        type="button"
+                        onClick={ () => editExp(exp.id) }
+                      >
+                        <img src={ edit } alt="Editar" />
                       </button>
                     </td>
                   </tr>
@@ -69,11 +81,13 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   deleteExp: (id) => dispatch(deleteExpense(id)),
+  editExp: (id) => dispatch(editExpense(id)),
 });
 
 Table.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   deleteExp: PropTypes.func.isRequired,
+  editExp: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

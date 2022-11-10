@@ -21,7 +21,16 @@ class WalletForm extends Component {
     loadCurrencies();
   }
 
-  handleChange = ({ target: { id, value } }) => this.setState({ [id]: value });
+  // handleChange = ({ target: { id, value } }) => this.setState({ [id]: value });
+  handleChange = ({ target: { id, value } }) => {
+    const { editor } = this.props;
+
+    if (editor) {
+      console.log('render infinito?');
+    } else {
+      this.setState({ [id]: value });
+    }
+  };
 
   handleSubmit = (event) => {
     event.preventDefault();
@@ -32,8 +41,8 @@ class WalletForm extends Component {
   };
 
   render() {
-    const { value, description, tag, method, currency } = this.state;
-    const { currencies } = this.props;
+    const { currencies, editor } = this.props;
+    const { value, description, tag, currency, method } = this.state;
 
     return (
       <form onSubmit={ this.handleSubmit } className="form-wallet">
@@ -99,7 +108,7 @@ class WalletForm extends Component {
           </select>
         </label>
         <br />
-        <button type="submit">Adicionar despesa</button>
+        <button type="submit">{ editor ? 'Editar despesa' : 'Adicionar despesa' }</button>
       </form>
     );
   }
@@ -107,6 +116,9 @@ class WalletForm extends Component {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  editor: state.wallet.editor,
+  idToEdit: Number(state.wallet.idToEdit),
+  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -118,6 +130,9 @@ WalletForm.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   loadCurrencies: PropTypes.func.isRequired,
   saveForm: PropTypes.func.isRequired,
+  editor: PropTypes.bool.isRequired,
+  idToEdit: PropTypes.number.isRequired,
+  expenses: PropTypes.arrayOf(Object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);
