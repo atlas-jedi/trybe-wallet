@@ -2,6 +2,7 @@ import getExpenses from '../../services/localStorage';
 import {
   GET_CURRENCIES,
   SAVE_EDIT_FORM,
+  SAVE_EDIT_EXPENSE,
   CALC_EXPENSE,
   DELETE_EXPENSE,
   EDIT_EXPENSE,
@@ -28,6 +29,19 @@ const wallet = (state = INITAL_STATE, action) => {
       id: state.expenses.length,
       ...action.form,
     }],
+  };
+  case SAVE_EDIT_EXPENSE: return {
+    ...state,
+    editor: false,
+    expenses: state.expenses.map((expense) => {
+      if (expense.id === state.idToEdit) {
+        return {
+          ...expense,
+          ...action.form,
+        };
+      }
+      return expense;
+    }),
   };
   case DELETE_EXPENSE: return {
     ...state,
