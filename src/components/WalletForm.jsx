@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import { connect } from 'react-redux';
-
 import { fetchCurrencies } from '../redux/actions';
 
 const INITIAL_STATE = {
@@ -131,8 +129,9 @@ WalletForm.propTypes = {
   loadCurrencies: PropTypes.func.isRequired,
   saveForm: PropTypes.func.isRequired,
   editor: PropTypes.bool.isRequired,
-  idToEdit: PropTypes.number.isRequired,
-  expenses: PropTypes.arrayOf(Object).isRequired,
+  // Props not in use:
+  // idToEdit: PropTypes.number.isRequired,
+  // expenses: PropTypes.arrayOf(Object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);
