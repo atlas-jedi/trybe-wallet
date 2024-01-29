@@ -3,6 +3,7 @@ import fetchApi from '../../services/fetchApi';
 export const SAVE_EMAIL = 'SAVE_EMAIL';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
 export const SAVE_EDIT_FORM = 'SAVE_EDIT_FORM';
+export const SAVE_EDIT_EXPENSE = 'SAVE_EDIT_EXPENSE';
 export const CALC_EXPENSE = 'CALC_EXPENSE';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 export const EDIT_EXPENSE = 'EDIT_EXPENSE';
@@ -19,6 +20,11 @@ const getCurrencies = (currencies) => ({
 
 const saveEditForm = (form) => ({
   type: SAVE_EDIT_FORM,
+  form,
+});
+
+const saveEditExpense = (form) => ({
+  type: SAVE_EDIT_EXPENSE,
   form,
 });
 
@@ -41,13 +47,20 @@ export const fetchCurrencies = (type, form = undefined) => (dispatch) => {
 
     if (type === 'currencies') {
       dispatch(getCurrencies(currenciesCode));
-    } else {
+    } else if (type === 'saveForm') {
       form = {
         ...form,
         exchangeRates: data,
       };
       dispatch(saveEditForm(form));
-      dispatch(calcTotalExpense());
+    } else if (type === 'saveExpense') {
+      form = {
+        ...form,
+        exchangeRates: data,
+      };
+      dispatch(saveEditExpense(form));
     }
+
+    dispatch(calcTotalExpense());
   });
 };

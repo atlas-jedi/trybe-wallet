@@ -19,22 +19,29 @@ class WalletForm extends Component {
     loadCurrencies();
   }
 
+  componentDidUpdate(prevProps) {
+    const { editor, expenses, idToEdit } = this.props;
+    if (editor && prevProps.editor !== editor) {
+      const expenseToEdit = expenses.find(({ id }) => id === idToEdit);
+      this.setState(expenseToEdit);
+    }
+  }
+
   // handleChange = ({ target: { id, value } }) => this.setState({ [id]: value });
   handleChange = ({ target: { id, value } }) => {
-    const { editor } = this.props;
-
-    if (editor) {
-      console.log('render infinito?');
-    } else {
-      this.setState({ [id]: value });
-    }
+    this.setState({ [id]: value });
   };
 
   handleSubmit = (event) => {
     event.preventDefault();
-    // pegar todos os dados de câmbio nesse momento na api
-    const { saveForm } = this.props;
-    saveForm(this.state);
+    const { saveForm, saveExpense, editor } = this.props;
+
+    if (editor) {
+      saveExpense(this.state);
+    } else {
+      saveForm(this.state);
+    }
+
     this.setState(INITIAL_STATE);
   };
 
@@ -122,16 +129,17 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   loadCurrencies: () => dispatch(fetchCurrencies('currencies')),
   saveForm: (form) => dispatch(fetchCurrencies('saveForm', form)),
+  saveExpense: (form) => dispatch(fetchCurrencies('saveExpense', form)),
 });
 
 WalletForm.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   loadCurrencies: PropTypes.func.isRequired,
   saveForm: PropTypes.func.isRequired,
+  saveExpense: PropTypes.func.isRequired,
   editor: PropTypes.bool.isRequired,
-  // Props not in use:
-  // idToEdit: PropTypes.number.isRequired,
-  // expenses: PropTypes.arrayOf(Object).isRequired,
+  idToEdit: PropTypes.number.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);
