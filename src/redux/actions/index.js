@@ -47,7 +47,8 @@ export const fetchCurrencies = (type, form = undefined) => (dispatch) => {
         exchangeRates: data,
       };
       dispatch(saveEditForm(form));
-      dispatch(calcTotalExpense());
     }
+
+    dispatch(calcTotalExpense());
   });
 };

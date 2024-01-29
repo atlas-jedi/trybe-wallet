@@ -1,3 +1,4 @@
+import getExpenses from '../../services/localStorage';
 import {
   GET_CURRENCIES,
   SAVE_EDIT_FORM,
@@ -8,7 +9,7 @@ import {
 
 const INITAL_STATE = {
   currencies: [],
-  expenses: [],
+  expenses: getExpenses(),
   editor: false,
   totalExpense: '0',
   idToEdit: 0,
